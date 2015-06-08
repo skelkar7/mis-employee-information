@@ -1,19 +1,27 @@
 /// <reference path="typings/angular2/angular2.d.ts" />
 
 import {Component, View, bootstrap} from 'angular2/angular2';
+import {Validators, ControlGroup, FormBuilder, formDirectives} from 'angular2/angular2';
 
 
 @Component({
-	selector: 'emp-info'
+	selector: 'emp-info',
+	injectables: [FormBuilder]
 })
 @View({
-	template: '<h1> hello {{name}}<h1>'
+	templateUrl: 'templates/employee-information.html',
+	directives: [formDirectives]
 })
 class EmployeeInformation {
-	name: string;
+	form: ControlGroup;
 
-	constructor(){
-		this.name = 'Sojjwal';
+	constructor(builder: FormBuilder) {
+		this.form = builder.group({
+			firstName  : [""],    //Validators.required is not present in angular2/angular2
+			middleName : [""],
+			lastName   : [""],
+			designation: [""]
+		});
 	}
 
 }
